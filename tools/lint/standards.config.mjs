@@ -8,7 +8,7 @@ export default {
   namespaces: ['closeworkspace', 'sim'],
 
   /** Reverse-domain prefix of every UI5 app ID (UI-03). Replace with your own. */
-  appIdPrefix: 'com.example.closeworkspace',
+  appIdPrefix: 'vn.fsoft.sap.ai.closeworkspace',
 
   /** MTA ID and prefix of all modules, resources and the xsappname (BTP-01 to BTP-03). */
   mtaId: 'closeworkspace',
