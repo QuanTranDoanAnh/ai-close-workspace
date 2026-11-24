@@ -9,15 +9,20 @@
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runTool } from './lib/common.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const node = process.execPath;
-const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx';
 const targets = ['db', 'srv', 'app', 'test', 'mock-bank', 'tools', 'eslint.config.mjs'];
 
 const steps = [
-  { key: 'es', name: 'ESLint: TypeScript, CDS, seed data', cmd: npx, args: ['eslint', '--no-error-on-unmatched-pattern', ...targets] },
-  { key: 'format', name: 'Prettier: formatting', cmd: npx, args: ['prettier', '--check', '--ignore-unknown', '.'] },
+  {
+    key: 'es',
+    name: 'ESLint: TypeScript, CDS, seed data',
+    tool: ['eslint', 'eslint'],
+    args: ['--no-error-on-unmatched-pattern', ...targets],
+  },
+  { key: 'format', name: 'Prettier: formatting', tool: ['prettier', 'prettier'], args: ['--check', '--ignore-unknown', '.'] },
   { key: 'types', name: 'TypeScript compiler (strict)', cmd: node, args: [path.join(here, 'run-tsc.mjs')] },
   { key: 'cds', name: 'CDS model standards', cmd: node, args: [path.join(here, 'check-cds-model.mjs')] },
   { key: 'files', name: 'File and folder names', cmd: node, args: [path.join(here, 'check-files.mjs')] },
@@ -39,7 +44,8 @@ const selected = only ? steps.filter((s) => only.includes(s.key)) : steps;
 const results = [];
 for (const step of selected) {
   console.log(`\n=== ${step.name} ===`);
-  const res = spawnSync(step.cmd, step.args, { stdio: 'inherit', shell: process.platform === 'win32' });
+  // No shell on any platform: a shell would split paths that contain spaces, such as C:\\Program Files.
+  const res = step.tool ? runTool(step.tool[0], step.tool[1], step.args) : spawnSync(step.cmd, step.args, { stdio: 'inherit' });
   results.push({ step, status: res.status ?? 1 });
 }
 

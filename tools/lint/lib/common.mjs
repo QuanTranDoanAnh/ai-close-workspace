@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -128,4 +129,34 @@ export function scanXml(text) {
     tags.push({ tag: m[1], attrs, line: lineAt(clean, m.index) });
   }
   return tags;
+}
+
+/** Finds the entry file of a tool installed in node_modules, searching upwards from a folder. */
+export function findBin(from, pkg, bin) {
+  let dir = path.resolve(from);
+  for (;;) {
+    const manifest = path.join(dir, 'node_modules', pkg, 'package.json');
+    if (fs.existsSync(manifest)) {
+      const field = JSON.parse(fs.readFileSync(manifest, 'utf8')).bin;
+      const entry = typeof field === 'string' ? field : field?.[bin];
+      return entry ? path.resolve(path.dirname(manifest), entry) : null;
+    }
+    const parent = path.dirname(dir);
+    if (parent === dir) return null;
+    dir = parent;
+  }
+}
+
+/**
+ * Runs an installed tool with the current Node.js and without a shell.
+ * No shell means no quoting: folders with spaces (C:\Program Files, a user name with a space)
+ * work on every platform.
+ */
+export function runTool(pkg, bin, toolArgs, options = {}) {
+  const entry = findBin(options.cwd || process.cwd(), pkg, bin);
+  if (!entry) {
+    console.error(`${bin}: package '${pkg}' is not installed. Run "npm install".`);
+    return { status: 1 };
+  }
+  return spawnSync(process.execPath, [entry, ...toolArgs], { stdio: 'inherit', ...options });
 }

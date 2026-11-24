@@ -1,0 +1,7 @@
+# Line endings are LF on every platform. Prettier and the shell scripts in .githooks/ expect LF,
+# and without this Git for Windows may convert files to CRLF on checkout.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+*.zip binary
