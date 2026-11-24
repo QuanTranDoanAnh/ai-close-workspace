@@ -10,7 +10,7 @@ The mapping of intents to work packages (WP) is a proposal derived from the buil
 
 | ID | Item | Priority | Status | Depends on | Sources |
 |---|---|---|---|---|---|
-| F-01 | Project skeleton: CAP Node.js with TypeScript, Jest, three app folders, `npm run lint` and `npm test` green on an empty project | Must | Not started | - | Architecture 1.1, 1.2; standards 2, 13.3; WP1 |
+| F-01 | Project skeleton: CAP Node.js with TypeScript, Jest, three app folders, `npm run lint` and `npm test` green on an empty project | Must | Planned | - | Architecture 1.1, 1.2; standards 2, 13.3; WP1 |
 | F-02 | Domain model, enum types, labels and seed data, with the corrected names | Must | Not started | F-01 | Architecture 8; intent 13; standards 4, 14; WP1 |
 | F-03 | Ports and simulated adapters, mock bank service | Must | Not started | F-02 | Architecture 5.6, AD decisions on ports; WP1 |
 | F-04 | Policy engine, impact calculator, trace writer, proposal lifecycle | Must | Not started | F-03 | Intent 10 (R1 to R3, R5, R6, R9, R10, R13); architecture 5.2, 7; WP2 |
