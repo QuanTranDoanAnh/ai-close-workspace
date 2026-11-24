@@ -41,8 +41,23 @@ srv/               <name>-service.cds + .ts, conversation/, orchestrator/, agent
 mock-bank/         small REST service for bank statement lines
 test/              mirrors srv/, <name>.test.ts
 tools/lint/        the lint kit (do not change without the user's approval)
-docs/              specifications, standards, deviation logs, work items
+docs/              specifications, standards, deviation logs, work items, and the folders below
 ```
+
+## Documents and media
+
+All documents, screenshots and video recordings are stored under `docs/`, in one of these folders:
+
+| Folder | Contents |
+|---|---|
+| `docs/00_inbox/` | Files the user provides as references or detailed instructions. Read them; do not edit them. |
+| `docs/10_intent/` | Documents Claude Code writes on the user's instructions to capture intent. |
+| `docs/20_design/` | Documents Claude Code writes on the user's instructions to capture design decisions. |
+| `docs/30_conventions/` | Documents Claude Code writes on the user's instructions to define coding standards and naming conventions. |
+| `docs/40_screenshots/` | Screenshots and video recordings Claude Code captures on the user's instructions, showing interactions with the systems under test. |
+| `docs/50_manuals/` | User manuals Claude Code writes on the user's instructions. |
+
+Never put documents, screenshots or recordings anywhere else in the repository. The files that existed before this rule (`docs/*.md` and `docs/work/`) stay where they are until the user decides to move them.
 
 ## Commands
 
