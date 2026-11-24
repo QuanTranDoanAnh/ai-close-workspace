@@ -1,3 +1,14 @@
 #!/bin/sh
+# GIT-02: branch name. `main` is allowed; a detached HEAD (rebase, bisect) is skipped.
+branch=$(git symbolic-ref --short -q HEAD)
+if [ -n "$branch" ] && [ "$branch" != "main" ]; then
+  if ! printf '%s\n' "$branch" | grep -Eq '^feature/[0-9]{8}_[0-9]{2}_[a-z0-9]+(-[a-z0-9]+)*$'; then
+    echo "GIT-02: branch '$branch' does not match feature/YYYYMMDD_NN_<summary>" >&2
+    echo "        example: feature/20261125_01_policy-permission-intersection" >&2
+    echo "        rename it with: git branch -m <new-name>" >&2
+    exit 1
+  fi
+fi
+
 # Fast checks before a commit. The full set runs in the pipeline (npm run lint).
 exec node tools/lint/run.mjs --only files,cds,fiori,i18n,btp
