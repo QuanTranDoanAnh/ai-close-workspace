@@ -4,6 +4,12 @@
  * The self-test writes these files to .lint-selftest/ and removes them afterwards.
  */
 
+import config from '../standards.config.mjs';
+
+/** App ID prefix from the kit settings (UI-03), so the fixtures follow a prefix change. */
+const prefix = config.appIdPrefix;
+const prefixPath = prefix.replaceAll('.', '/');
+
 const j = (o) => JSON.stringify(o, null, 2) + '\n';
 
 const tsconfig = j({
@@ -32,7 +38,7 @@ const appTsconfig = (app) =>
       noEmit: true,
       rootDir: './webapp',
       types: ['@sapui5/types'],
-      paths: { [`com/example/closeworkspace/${app}/*`]: ['./webapp/*'] },
+      paths: { [`${prefixPath}/${app}/*`]: ['./webapp/*'] },
     },
     include: ['./webapp/**/*'],
   });
@@ -194,7 +200,7 @@ describe('decidePosting', () => {
 
   'app/workspace/ui5.yaml': `specVersion: '4.0'
 metadata:
-  name: com.example.closeworkspace.workspace
+  name: ${prefix}.workspace
 type: application
 framework:
   name: SAPUI5
@@ -210,7 +216,7 @@ framework:
   'app/workspace/webapp/manifest.json': j({
     _version: '2.0.0',
     'sap.app': {
-      id: 'com.example.closeworkspace.workspace',
+      id: `${prefix}.workspace`,
       type: 'application',
       title: '{{appTitle}}',
       i18n: 'i18n/i18n.properties',
@@ -229,12 +235,12 @@ framework:
       dependencies: { minUI5Version: '1.136.0', libs: { 'sap.m': {}, 'sap.f': {}, 'sap.ui.core': {}, 'sap.ui.layout': {} } },
       contentDensities: { compact: true, cozy: true },
       models: {
-        i18n: { type: 'sap.ui.model.resource.ResourceModel', settings: { bundleName: 'com.example.closeworkspace.workspace.i18n.i18n' } },
+        i18n: { type: 'sap.ui.model.resource.ResourceModel', settings: { bundleName: `${prefix}.workspace.i18n.i18n` } },
         '': { dataSource: 'mainService' },
       },
     },
   }),
-  'app/workspace/webapp/view/Workspace.view.xml': `<mvc:View controllerName="com.example.closeworkspace.workspace.controller.Workspace"
+  'app/workspace/webapp/view/Workspace.view.xml': `<mvc:View controllerName="${prefix}.workspace.controller.Workspace"
   xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" displayBlock="true">
   <!-- <Button text="commented out literal" style="x"/> -->
   <Page id="workspacePage" title="{i18n>workspace.title}">
@@ -249,7 +255,7 @@ import Controller from 'sap/ui/core/mvc/Controller';
 import type ResourceModel from 'sap/ui/model/resource/ResourceModel';
 
 /**
- * @namespace com.example.closeworkspace.workspace.controller
+ * @namespace ${prefix}.workspace.controller
  */
 export default class Workspace extends Controller {
   public onApprovePress(): void {
@@ -443,7 +449,7 @@ empty.text=
 
   'app/governance/webapp/manifest.json': j({
     'sap.app': {
-      id: 'com.example.closeworkspace.governance',
+      id: `${prefix}.governance`,
       title: '{{appTitle}}',
       crossNavigation: { inbounds: { nav: { semanticObject: 'agent_governance', action: 'Display' } } },
     },
