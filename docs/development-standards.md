@@ -122,7 +122,7 @@ Service definitions and their handlers sit directly in `srv/`. This is the CAP c
 | Role collection | `Close Workspace ` + role | `Close Workspace Controller` | BTP-04 |
 | Destination | UPPER_SNAKE_CASE, system first | `S4HC_AGENT_ACCRUALS` | BTP-08 |
 | Commit subject | `type(scope): summary` | `feat(policy): hold postings above the limit` | GIT-01 |
-| Branch | `type/scope-short-description` | `feat/policy-permission-intersection` | GIT-02 |
+| Branch | `feature/YYYYMMDD_NN_<summary>` | `feature/20261125_01_policy-permission-intersection` | GIT-02 |
 
 ## 4. CDS domain model
 
@@ -318,7 +318,7 @@ Text types in use: `XBUT` button, `XTIT` title, `XFLD` field label, `XCOL` colum
 | ID | Rule | Level | Enforced by |
 |---|---|---|---|
 | GIT-01 | Commit subjects are `type(scope): summary`, at most 72 characters, lower-case imperative, no period. Types and scopes are listed in `standards.config.mjs`. | Must | `check-commit-msg` in the `commit-msg` hook and the pipeline |
-| GIT-02 | Branches are `type/scope-short-description` in kebab-case. | Should | Review |
+| GIT-02 | Every new feature is developed on a new branch named `feature/YYYYMMDD_NN_<summary>`: `YYYYMMDD` is the date the branch is opened, `NN` is a two-digit sequence number of the branches opened that day (`01`, `02`, ...), and `<summary>` is a lower-case kebab-case summary of the branch content. `main` is exempt. | Must | `pre-commit` hook, review |
 | GIT-03 | A pull request passes `npm run lint` and the tests, and names the intent or rule IDs it implements. | Must | Pipeline, review |
 
 Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `build`, `ci`, `perf`.

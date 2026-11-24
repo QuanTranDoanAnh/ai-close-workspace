@@ -92,7 +92,7 @@ A Stop hook runs the lint kit when you finish and sends you back if it fails. Fi
 
 ## Git
 
-- Branch per work item: `feat/<scope>-<short-description>`.
+- Open a new branch for every new feature or work item, named `feature/YYYYMMDD_NN_<summary>`: the date the branch is opened, a two-digit sequence number for that day starting at `01`, and a lower-case kebab-case summary. Example: `feature/20261125_01_policy-permission-intersection` (GIT-02). The pre-commit hook rejects other names; `main` is exempt.
 - Commit subject: `type(scope): summary`, at most 72 characters, lower-case imperative. Name the intent or rule IDs in the body. A commit-msg hook checks this.
 - Commit when a work item, or a coherent step of it, passes lint and tests. Never commit with `--no-verify`.
 

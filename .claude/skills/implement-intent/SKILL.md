@@ -13,7 +13,7 @@ Every subagent starts with an empty context. Each delegation message must contai
 
 - `docs/work/$ARGUMENTS/spec.md` has `status: approved`, and `plan.md` exists. If not, stop and point to `/specify-intent $ARGUMENTS`.
 - `git status` is clean. If not, ask the user what to do with the open changes.
-- Create the branch named in the plan, or `feat/<scope>-<short-description>`.
+- Create a new branch `feature/YYYYMMDD_NN_<summary>` (GIT-02): today's date, `NN` one higher than the highest `feature/<today>_NN_*` branch in `git branch --all` (or `01`), and the summary from the plan. Record the actual name in `plan.md`.
 - Set the item to `In progress` in `docs/work/STATUS.md`.
 - Create a task list from the tasks in `plan.md`, so progress stays visible.
 

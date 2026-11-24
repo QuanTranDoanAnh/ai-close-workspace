@@ -1,6 +1,6 @@
 ---
 id: <ID>
-branch: feat/<scope>-<short-description>
+branch: feature/YYYYMMDD_NN_<summary>
 parallel-safe: <yes | no>
 ---
 
