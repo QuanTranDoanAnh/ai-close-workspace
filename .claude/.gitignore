@@ -1,0 +1,4 @@
+# hook state and personal settings are local
+.state/
+settings.local.json
+agent-memory-local/

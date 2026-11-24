@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(npm ci)",
+      "Bash(npx cds *)",
+      "Bash(npx jest *)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(npx prettier *)",
+      "Bash(npx ui5lint *)",
+      "Bash(node tools/lint/*)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git switch *)",
+      "Bash(git branch *)",
+      "mcp__cds__*",
+      "mcp__ui5__*",
+      "mcp__fiori__*"
+    ],
+    "ask": [
+      "Bash(npm install *)",
+      "Bash(git push *)",
+      "Bash(cf *)",
+      "Bash(npx mbt *)",
+      "Edit(/tools/lint/**)",
+      "Edit(/eslint.config.mjs)",
+      "Edit(/tsconfig.json)",
+      "Edit(/.githooks/**)",
+      "Edit(/.claude/**)",
+      "Edit(/docs/intent-spec.md)",
+      "Edit(/docs/architecture-spec.md)",
+      "Edit(/docs/development-standards.md)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(default-env.json)",
+      "Read(.cdsrc-private.json)",
+      "Edit(.env)",
+      "Edit(.env.*)",
+      "Edit(default-env.json)",
+      "Edit(.cdsrc-private.json)",
+      "Bash(git commit * --no-verify*)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/session-start.mjs"],
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-edits.mjs"],
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/restrict-writes.mjs"],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/format-on-edit.mjs"],
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/lint-gate.mjs"],
+            "timeout": 600
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "backend-developer|ui-developer|test-author",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/lint-gate.mjs"],
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  }
+}

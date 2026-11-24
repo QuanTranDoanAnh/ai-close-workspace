@@ -1,0 +1,19 @@
+{
+  "intent-analyst": ["docs/work/"],
+  "solution-planner": ["docs/work/"],
+  "test-author": ["test/", "docs/work/"],
+  "backend-developer": [
+    "db/",
+    "srv/",
+    "mock-bank/",
+    "test/",
+    "docs/work/",
+    "docs/deviations.md",
+    "xs-security.json",
+    "mta.yaml",
+    "package.json"
+  ],
+  "ui-developer": ["app/", "docs/work/", "docs/fiori-deviations.md"],
+  "spec-verifier": ["docs/work/"],
+  "fiori-reviewer": ["docs/work/"]
+}

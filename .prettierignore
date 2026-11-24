@@ -1,0 +1,15 @@
+node_modules/
+gen/
+dist/
+coverage/
+@cds-models/
+.lint-selftest/
+package-lock.json
+mta_archives/
+resources/
+*.cds
+*.xml
+*.csv
+*.properties
+*.md
+.claude/.state/

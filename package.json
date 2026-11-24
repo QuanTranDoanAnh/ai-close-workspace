@@ -1,0 +1,42 @@
+{
+  "name": "closeworkspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Close Workspace: concept prototype for autonomous month-end close. Repository seed with the lint kit; work item F-01 adds the application.",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "lint": "node tools/lint/run.mjs",
+    "lint:es": "eslint --no-error-on-unmatched-pattern db srv app test mock-bank tools eslint.config.mjs",
+    "lint:es:fix": "eslint --fix --no-error-on-unmatched-pattern db srv app test mock-bank tools eslint.config.mjs",
+    "lint:format": "prettier --check --ignore-unknown .",
+    "format": "prettier --write --ignore-unknown .",
+    "lint:cds": "node tools/lint/check-cds-model.mjs",
+    "lint:files": "node tools/lint/check-files.mjs",
+    "lint:fiori": "node tools/lint/check-fiori.mjs",
+    "lint:i18n": "node tools/lint/check-i18n.mjs",
+    "lint:btp": "node tools/lint/check-btp.mjs",
+    "lint:ui5": "node tools/lint/run-ui5lint.mjs",
+    "lint:types": "node tools/lint/run-tsc.mjs",
+    "lint:selftest": "node tools/lint/selftest.mjs",
+    "prepare": "node tools/lint/install-hooks.mjs"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.20.0",
+    "@eslint/js": "^10.0.1",
+    "@sap/cds": "^10.2.2",
+    "@sap/eslint-plugin-cds": "^4.2.5",
+    "@sapui5/types": "^1.154.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^26.6.6",
+    "@ui5/linter": "^1.23.10",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.73.0",
+    "yaml": "^2.9.1"
+  }
+}

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Fast checks before a commit. The full set runs in the pipeline (npm run lint).
+exec node tools/lint/run.mjs --only files,cds,fiori,i18n,btp

@@ -1,0 +1,3 @@
+#!/bin/sh
+# GIT-01: commit message format
+exec node tools/lint/check-commit-msg.mjs "$1"

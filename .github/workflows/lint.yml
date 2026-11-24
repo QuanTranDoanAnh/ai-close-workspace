@@ -1,0 +1,31 @@
+# Runs every lint step on each push and pull request.
+# Adapt the trigger and runner to your CI system. The only command that matters is `npm run lint`.
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Self-test of the lint kit
+        run: npm run lint:selftest
+      - name: Lint
+        run: npm run lint
+      - name: Commit messages (GIT-01)
+        if: github.event_name == 'pull_request'
+        run: |
+          for sha in $(git rev-list origin/${{ github.base_ref }}..HEAD); do
+            git log -1 --pretty=%B "$sha" | node tools/lint/check-commit-msg.mjs -
+          done
