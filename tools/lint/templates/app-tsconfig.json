@@ -12,7 +12,7 @@
     "rootDir": "./webapp",
     "types": ["@sapui5/types"],
     "paths": {
-      "com/example/closeworkspace/APP_NAME/*": ["./webapp/*"]
+      "vn/fsoft/sap/ai/closeworkspace/APP_NAME/*": ["./webapp/*"]
     }
   },
   "include": ["./webapp/**/*"]
