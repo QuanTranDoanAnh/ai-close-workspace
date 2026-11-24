@@ -114,7 +114,7 @@ Service definitions and their handlers sit directly in `srv/`. This is the CAP c
 | Enum member | UPPER_SNAKE_CASE | `AUTO_POST` | TS-01 |
 | Control ID | lowerCamelCase ending in the control type | `approveButton` | UI-01 |
 | Event handler | `on` + subject + event | `onApprovePress` | UI-02 |
-| App ID | `<prefix>.<app>` | `com.example.closeworkspace.workspace` | UI-03 |
+| App ID | `<prefix>.<app>` | `vn.fsoft.sap.ai.closeworkspace.workspace` | UI-03 |
 | Semantic object, action | PascalCase, lowerCamelCase | `CloseRun`, `manage` | UI-04 |
 | Text key | lowerCamelCase segments with dots | `proposal.approve` | I18N-01 |
 | MTA module, resource, service instance | `closeworkspace-` + kebab-case | `closeworkspace-srv` | BTP-02 |
